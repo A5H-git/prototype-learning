@@ -3,6 +3,7 @@ import torch
 from typing import Literal
 from torch.utils.data import Dataset
 from torchvision import transforms as T
+from PIL import Image
 
 
 class MNISTData(Dataset):
@@ -34,7 +35,8 @@ class MNISTData(Dataset):
         y = self.labels[index]
 
         # Convert and transform
-        x = torch.from_numpy(x).float()
+        x = Image.fromarray(x)
+        y = torch.from_numpy(y).int()
 
         if self.transform:
             x = self.transform(x)

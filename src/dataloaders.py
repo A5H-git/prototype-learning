@@ -11,13 +11,20 @@ class MNISTData(Dataset):
         path: str,
         data_type: Literal["train", "test", "val"],
         transform: T.Compose | None = None,
+        to_ignore: list[int] | None = None,
     ) -> None:
 
         self.transform = transform
+        self.mask = to_ignore
 
         with np.load(path) as data:
             self.images = data[f"{data_type}_images"]
             self.labels = data[f"{data_type}_labels"]
+
+        if self.mask:
+            keep = ~np.isin(self.labels, self.mask)
+            self.images = self.images[keep]
+            self.labels = self.labels[keep]
 
     def __len__(self):
         return len(self.images)
@@ -33,4 +40,3 @@ class MNISTData(Dataset):
             x = self.transform(x)
 
         return x, y
-

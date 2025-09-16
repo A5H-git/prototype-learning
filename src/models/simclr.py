@@ -1,3 +1,9 @@
+"""
+Code adpated and borrowed from:
+SSL Contrastive Learning by Phillip Lippe @ UvA
+https://uvadlc-notebooks.readthedocs.io/en/latest/tutorial_notebooks/tutorial17/SimCLR.html
+"""
+
 import torch
 import torch.nn.functional as F
 import pytorch_lightning as pl
@@ -23,12 +29,13 @@ def get_contrastive_transforms():
     t = T.Compose(
         [
             T.RandomHorizontalFlip(),
-            # T.RandomResizedCrop(size=224),  # check size - don't need rn
+            T.RandomResizedCrop(size=224),  # check size - don't really need
             T.RandomApply([color_jitter], p=0.8),
             T.RandomGrayscale(p=0.2),
             T.GaussianBlur(kernel_size=9),
             T.ToTensor(),
-            T.Normalize((0.5,), (0.5,)),
+            # T.Normalize((0.5,), (0.5,)),
+            T.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
         ]
     )
 
@@ -49,10 +56,11 @@ class SimCLR(pl.LightningModule):
 
         # MLP projectoion layer
         self.mlp = nn.Sequential(
-            nn.Linear(feat_dims, hidden_dim),  # Linear
+            nn.Linear(feat_dims, hidden_dim, bias=False),  # Linear
             nn.BatchNorm1d(hidden_dim),  # check this
-            nn.ReLU(),
-            nn.Linear(hidden_dim, out_dim),
+            nn.ReLU(inplace=True),
+            nn.Linear(hidden_dim, out_dim, bias=False),
+            nn.BatchNorm1d(out_dim, affine=False),
         )
 
     def forward(self, x):
@@ -68,8 +76,8 @@ class SimCLR(pl.LightningModule):
         self.log(f"{mode}_mean_pos", mean_pos, on_epoch=True, prog_bar=True)
 
     def _rank_loss(self, logits: torch.Tensor, pos_idx: torch.Tensor):
-        sim_argsort = logits.argsort(dim=-1, descending=True).argmin(dim=1)
-        pos_rank = (sim_argsort == pos_idx[:, None]).argmax(dim=1)
+        sim_argsort = logits.argsort(dim=-1, descending=True)
+        pos_rank = (sim_argsort == pos_idx[:, None]).float().argmax(dim=1)
 
         top_1 = (pos_rank == 0).float().mean()
         top_5 = (pos_rank < 5).float().mean()

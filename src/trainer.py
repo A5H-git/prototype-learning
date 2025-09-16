@@ -12,13 +12,13 @@ CHECKPOINT_PATH = "checkpoints"
 
 def setup_trainer(
     name,
-    max_steps: int = 25_000,  # Adjust if needed
-    max_epochs: int = 200,
+    max_epochs: int,  # = 200,
+    max_steps: int,  # = 25_000,  # Adjust if needed
     monitor: str = "val_acc",
-    mode="max",
+    mode: str = "max",
+    grad_batches: int = 2,
 ):
     logger = CSVLogger(save_dir="logs", name=name)
-    filename = f""
     checkpoint_cb = ModelCheckpoint(
         dirpath=CHECKPOINT_PATH,
         monitor=monitor,
@@ -40,8 +40,9 @@ def setup_trainer(
         devices=1,
         precision="16-mixed",
         log_every_n_steps=10,
+        accumulate_grad_batches=grad_batches,
         max_steps=max_steps,
-        max_epochs=max_epochs if not max_steps else 0,
+        max_epochs=max_epochs if max_steps == -1 else -1,
     )
 
     return trainer, checkpoint_cb, logger

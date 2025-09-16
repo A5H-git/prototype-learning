@@ -1,4 +1,4 @@
-# Self-Supervised Learning & Few-Shot Evaluation
+# Prototype Learning for Few-Shot Medical Image Classification
 This project explores two modern directions in representation learning:  
 - **Self-Supervised Learning (SSL)** methods like `SimCLR` and `DINO`🦖, which learn powerful embeddings without labels.  
 - **Meta-Learning (Prototypical Networks)** for few-shot classification, where the goal is to generalize to *new classes* with very few examples.  

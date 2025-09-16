@@ -44,7 +44,7 @@ Here's an outline of what I did here:
   <img src="./docs/images/embeds/umap_test_dino.png" width="250"/>
   <img src="./docs/images/embeds/umap_test_convnet.png" width="250"/>
 </p>
-<p align="center"><em>Figure 3: Cross-domain UMAP embeddings with ProtoNet prototypes for `SimCLR`, `DINO`, and `Convnet`. Even across domains, embeddings retain some structure, and prototypes highlight loose class organization.</em></p>
+<p align="center"><em>Figure 3: Cross-domain UMAP embeddings with ProtoNet prototypes for SimCLR, DINO, and Convnet using gastric histology images. Even across domains, embeddings retain some structure, and prototypes highlight loose class organization.</em></p>
 
 
 

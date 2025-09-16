@@ -36,7 +36,7 @@ Here's an outline of what I did here:
   <!-- some weird scaling here oops -->
   <img src="./docs/images/embeds/umap_val_convnet.png" width="258"/> 
 </p>
-<p align="center"><em>Figure 2: UMAP embeddings from different encoders (SimCLR, DINO, and ConvNet). Each shows clustering of classes, with varying separation quality. Notice that classes seemingly tend to stay adjacent to each other.</em></p>
+<p align="center"><em>Figure 2: UMAP embeddings from different encoders (SimCLR, DINO, and Convnet). Each shows clustering of classes, with varying separation quality. Notice that classes seemingly tend to stay adjacent to each other.</em></p>
 
 ### 3. Cross-Domain + Prototype Embeddings
 <p align="center">
@@ -46,6 +46,11 @@ Here's an outline of what I did here:
 </p>
 <p align="center"><em>Figure 3: Cross-domain UMAP embeddings with ProtoNet prototypes for SimCLR, DINO, and Convnet using gastric histology images. Even across domains, embeddings retain some structure, and prototypes highlight loose class organization.</em></p>
 
+### 4. K-Shot Evaluation
+<p align="center">
+  <img src="./docs/images/fewshot.png" width="400"/>
+</p>
+<p align="center"><em>Figure 4: Comparison of K-shot evaluation between SimCLR, DINO, and Convnet using (cross-domain) gastric images. It's interesting to note that despite low accuracy, domain specific SimCLR performed better than DINO, suggesting that training on similar domains improves performance.</em></p>
 
 
 ## Future Work 🚀

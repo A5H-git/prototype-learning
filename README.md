@@ -9,7 +9,7 @@ Here's an outline of what I did here:
 - I trained SSL models (`SimCLR`, `ConvNet`, and `DINO` as a pretrained backbone) on **PathMNIST** to compare their embeddings.  
 - I visualized these embeddings with **t-SNE** and **UMAP** to see how well classes cluster in low dimensions.  
 - I tested **linear probe classification** to measure how separable the representations are.  
-- Finally, I experimented with **ProtoNets** for few-shot learning and pushed into **cross-domain evaluation** using a gastric microenvironment dataset.
+- Finally, I experimented with **ProtoNets** for few-shot learning and pushed into **cross-domain evaluation** using a gastric microenvironment dataset from [Lou et al. (2025)](https://www.nature.com/articles/s41597-025-04489-9).
 
 👉 For full ramblings (and story) check out [`docs/prototype.ipynb`](docs/prototype.ipynb) 👈
 
@@ -23,6 +23,28 @@ Here's an outline of what I did here:
 
 
 ## Storybook 📷
+### 1. PathMNIST Class Data Viz
+<p align="center">
+  <img src="./docs/images/pathmnist.png" width="400"/>
+</p>
+<p align="center"><em>Figure 1: Sample PathMNIST images with class labels. Each class corresponds to a different histopathology tissue type.</em></p>
+
+### 2. UMAP Embeddings
+<p align="center">
+  <img src="./docs/images/embeds/umap_val_simclr.png" width="250"/>
+  <img src="./docs/images/embeds/umap_val_dino.png" width="250"/>
+  <!-- some weird scaling here oops -->
+  <img src="./docs/images/embeds/umap_val_convnet.png" width="258"/> 
+</p>
+<p align="center"><em>Figure 2: UMAP embeddings from different encoders (SimCLR, DINO, and ConvNet). Each shows clustering of classes, with varying separation quality. Notice that classes seemingly tend to stay adjacent to each other.</em></p>
+
+### 3. Cross-Domain + Prototype Embeddings
+<p align="center">
+  <img src="./docs/images/embeds/umap_test_simclr.png" width="250"/>
+  <img src="./docs/images/embeds/umap_test_dino.png" width="250"/>
+  <img src="./docs/images/embeds/umap_test_convnet.png" width="250"/>
+</p>
+<p align="center"><em>Figure 3: Cross-domain UMAP embeddings with ProtoNet prototypes for `SimCLR`, `DINO`, and `Convnet`. Even across domains, embeddings retain some structure, and prototypes highlight loose class organization.</em></p>
 
 
 
@@ -31,6 +53,7 @@ Here's an outline of what I did here:
 - Test **further domain shifts**: e.g., CARS 🚗 dataset to see when generalist models shine.  
 - Explore **newer few-shot methods**: like LDP-Net and other architectures from recent papers.  
 - Investigate **efficiency vs. performance tradeoffs**: since cheaper methods may be more practical in real-world medical contexts.  
+- Investigate **clustering phenomena**: where some classes group together similarly despite different training regimes.
 
 
 ## Resources 📚

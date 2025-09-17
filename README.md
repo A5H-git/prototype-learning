@@ -6,7 +6,7 @@ This project explores two modern directions in representation learning:
 I was motivated by challenges in medical imaging, where labeled data is scarce and models that can generalize across domains would be a huge advantage.  
 
 Here's an outline of what I did here:
-- I trained SSL models (`SimCLR`, `ConvNet`, and `DINO` as a pretrained backbone) on **PathMNIST** to compare their embeddings.  
+- I trained SSL models (`SimCLR`), used `DINO` (pretrained backbone), and `Convnet` (ProtoNet trained) on **PathMNIST** to compare their embeddings.  
 - I visualized these embeddings with **t-SNE** and **UMAP** to see how well classes cluster in low dimensions.  
 - I tested **linear probe classification** to measure how separable the representations are.  
 - Finally, I experimented with **ProtoNets** for few-shot learning and pushed into **cross-domain evaluation** using a gastric microenvironment dataset from [Lou et al. (2025)](https://www.nature.com/articles/s41597-025-04489-9).
